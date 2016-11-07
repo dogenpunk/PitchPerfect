@@ -17,17 +17,6 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
 
     var audioRecorder: AVAudioRecorder!
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
     @IBAction func recordAudio(_ sender: Any) {
         recordingLabel.text = "Recording in progress..."
         recordingButton.isEnabled = false
@@ -36,8 +25,7 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
         let dirPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
         
         let recordingName = "recordedVoice.wav"
-        let pathArray = [dirPath, recordingName]
-        let filePath = NSURL.fileURL(withPathComponents: pathArray)
+        let filePath = NSURL.fileURL(withPathComponents: [dirPath, recordingName])
         print(filePath!)
         
         let session = AVAudioSession.sharedInstance()
@@ -77,8 +65,7 @@ class RecordSoundsViewController: UIViewController, AVAudioRecorderDelegate {
         if segue.identifier == "stopRecording" {
             let playSoundsVC = segue.destination as! PlaySoundsViewController
             let recordedAudioURL = sender as! NSURL
-            playSoundsVC.recordedAudioURL = recordedAudioURL;
+            playSoundsVC.recordedAudioURL = recordedAudioURL as URL!;
         }
     }
 }
-
